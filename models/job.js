@@ -23,6 +23,10 @@ const JobSchema = new Schema({
   sponsorship: {
     type: Boolean,
   },
+  url: {
+    type: String,
+    required: [true, "URL field is required"],
+  },
   isAvailable: {
     type: Boolean,
     required: true,
