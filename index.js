@@ -4,6 +4,8 @@ const mongoose = require("mongoose");
 
 const bodyParser = require("body-parser");
 
+const cors = require("cors");
+
 //Init app
 const app = express();
 
@@ -11,6 +13,7 @@ const app = express();
 mongoose.connect("mongodb://localhost/job-board");
 mongoose.Promise = global.Promise;
 
+app.use(cors());
 app.use(bodyParser.json());
 
 //Init Routes

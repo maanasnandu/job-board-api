@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GETTING JOBS</title>
+  </head>
+  <body>
+    <h1>JOB GETTER</h1>
+    <h1>
+      USE "mongod" in NPM CLI and "nodemon index.js" in cmd to start the scripts
+      that post in Postman and fetch here!
+    </h1>
+    <div id="jobsinfo"></div>
+  </body>
+
+  <script>
+    var baseUrl = "http://localhost:4000";
+    function loadJobs() {
+      var xmlhttp = new XMLHttpRequest();
+      xmlhttp.open("GET", baseUrl + "/api/jobs", true);
+      xmlhttp.onreadystatechange = function () {
+        if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+          var jobs = JSON.parse(xmlhttp.responseText);
+          var tbltop = `
+                <table>
+                    <tr><th>Name</th><th>Type</th><th>Description</th><th>Skills</th><th>Sponsorship</th></tr>
+                </table>
+                `;
+          var main = "";
+
+          for (i = 0; i < jobs.length; i++) {
+            main +=
+              "<tr><td>" +
+              jobs[i].title +
+              "</td><td>" +
+              jobs[i].typeOfJob +
+              "</td><td>" +
+              jobs[i].description +
+              "</td><td>" +
+              jobs[i].skills +
+              "</td><td>" +
+              "</td></tr>";
+          }
+          var tblbottom = "</table>";
+          var tbl = tbltop + main + tblbottom;
+          document.getElementById("jobsinfo").innerHTML = tbl;
+        }
+      };
+      xmlhttp.send();
+    }
+    window.onload = function () {
+      loadJobs();
+    };
+  </script>
+</html>
