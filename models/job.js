@@ -31,6 +31,9 @@ const JobSchema = new Schema({
     type: Boolean,
     required: true,
   },
+  companylogourl: {
+    type: String,
+  },
 });
 
 const Job = mongoose.model("jobs", JobSchema);

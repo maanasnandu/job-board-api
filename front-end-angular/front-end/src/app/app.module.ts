@@ -3,16 +3,28 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { freeApiService } from './services/freeapi.service';
+import { HttpClientModule } from '@angular/common/http';
+
+import { Routes, RouterModule } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+
+//const appRoutes: Routes = [{ path: '', component: AppComponent }];
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    RouterModule,
+    BrowserAnimationsModule,
+    MatCardModule,
+    MatButtonModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [freeApiService],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
