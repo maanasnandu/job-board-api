@@ -1,0 +1,12 @@
+@import "~@angular/material/theming";
+.clickable {
+  cursor: pointer;
+  &:hover {
+    @include mat-elevation(8);
+  }
+}
+
+.fa-heart {
+  color: palevioletred;
+  cursor: pointer;
+}

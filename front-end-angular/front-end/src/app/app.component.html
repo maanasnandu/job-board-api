@@ -14,6 +14,8 @@
   }
 </style>
 
+<div></div>
+
 <h2>Getting from (http://localhost:4000/api/jobs)</h2>
 <!--<table>
   <tr>
@@ -39,10 +41,32 @@
   </tr>
 </table>
 -->
-<button mat-raised-button color="accent">Click me</button>
+
+<div class="form-group">
+  <input
+    type="text"
+    class="form-control"
+    placeholder="Search Jobs By Name"
+    style="width: 300px;"
+    [(ngModel)]="searchTerm"
+    (input)="Search()"
+  />
+</div>
+<!--Search by job type NEED TO CHANGE-->
+<div *ngFor="let p of lstjobs">
+  <input type="radio" name="typeOfJob" value="{{ p.typeOfJob }}" /><i>{{
+    p.typeOfJob
+  }}</i>
+</div>
+
+<button mat-raised-button color="accent" (click)="refresh()">
+  Refresh search
+</button>
 <div class="row">
   <div *ngFor="let k of lstjobs" class="col-4 card">
     <mat-card class="example-card">
+      <!--CLICKABLE FUNCTIONALITY: class="example-card clickable" (click)="navigateToCard()"
+      matRipple-->
       <mat-card-header>
         <div mat-card-avatar class="example-header-image">
           <img
@@ -51,32 +75,64 @@
             alt="Photo of a Shiba Inu"
           />
         </div>
-        <mat-card-title>{{ k.title }}</mat-card-title>
+        <mat-card-title
+          >{{ k.title }} <i class="fas fa-heart float-right"></i
+        ></mat-card-title>
         <mat-card-subtitle>{{ k.typeOfJob }}</mat-card-subtitle>
       </mat-card-header>
-      <img
-        mat-card-image
-        src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-        alt="Photo of a Shiba Inu"
-      />
+
       <mat-card-content>
         <p>
           {{ k.description }}
         </p>
+        <p>
+          {{ k._id }}
+        </p>
+
+        <!--
+        <select
+          [(ngModel)]="JobSelected"
+          (ngModelChange)="onJobSelected($event)"
+        >
+          <option *ngFor="let job of lstjobs" [value]="job._id">
+            {{ job.title }}
+          </option>
+        </select> -->
+        View this job
       </mat-card-content>
       <mat-card-content>
+        Skills:
         <p>
           {{ k.skills }}
         </p>
       </mat-card-content>
       <mat-card-actions>
-        <button mat-button color="accent">{{ k.sponsorship }}</button>
-        <button mat-button>{{ k.isAvailable }}</button>
+        <button mat-button color="primary" *ngIf="k.sponsorship === true">
+          sponsorhip available
+        </button>
+        <button mat-button color="warn" *ngIf="k.sponsorship === false">
+          sponsorship unavailable
+        </button>
 
-        <button>
+        <button mat-button color="primary" *ngIf="k.isAvailable === true">
+          job available
+        </button>
+        <button mat-button color="warn" *ngIf="k.isAvailable === false">
+          job expired
+        </button>
+
+        <button mat-button *ngIf="k.isAvailable === true">
           <a href="{{ k.url }}}" target="_blank">Apply Now</a>
         </button>
       </mat-card-actions>
     </mat-card>
   </div>
-</div>
+
+  <!--
+
+  <table>
+    <tr *ngFor="let job of eachJob">
+      <td>{{ job.description }}</td>
+    </tr>
+  </table>
+--></div>
